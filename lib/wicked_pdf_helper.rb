@@ -39,7 +39,9 @@ module WickedPdfHelper
     end
 
     def wicked_pdf_image_tag(img, options={})
-      image_tag "file:///#{asset_pathname(img).to_s}", options
+      path = asset_pathname(img).to_s
+      path = 'file:///' + path unless path.downcase.starts_with?('http://') or path.downcase.starts_with?('https://')
+      image_tag path, options
     end
 
     def wicked_pdf_javascript_src_tag(jsfile, options={})
