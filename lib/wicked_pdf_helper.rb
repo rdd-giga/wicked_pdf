@@ -57,7 +57,8 @@ module WickedPdfHelper
     private
 
     def asset_pathname(source)
-      return File.join(Rails.public_path, source) if source.starts_with?('/') && !source.starts_with?('//')
+      return "http:" + source if source.starts_with?('//')
+      return File.join(Rails.public_path, source) if source.starts_with?('/')
       if Rails.configuration.assets.compile == false
         if ActionController::Base.asset_host
           # asset_path returns an absolute URL using asset_host if asset_host is set
